@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+{{ super() }}
+<style>
+  .deep-space-container {
+    text-align: center;
+    padding-top: 10vh;
+    animation: fadeIn 1.5s ease-in forwards;
+    position: relative;
+    z-index: 1;
+  }
+
+  ... .ds-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #00f0ff;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+
+  .ds-content {
+    background: rgba(10, 14, 23, 0.7);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    padding: 30px;
+    border-radius: 5px;
+    margin-top: 20px;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="deep-space-container">
+    {% if request.path == '/' or request.path == '/index' %}
+    <h1 class="ds-title">Deep Space Anomaly</h1>
+    <div class="ds-content">
+      {{ content | safe }}
+    </div>
+    {% else %}
+    {{ content | safe }}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ Assets.js("assets/js/page.js") }}
+{{ Assets.js("assets/js/starfield.js") }}
+{% endblock %}

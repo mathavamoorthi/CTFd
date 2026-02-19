@@ -1,0 +1,213 @@
+// Glass-Nebula Challenge Card Component
+
+.challenge-button {
+    // Reset default button styles
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    position: relative;
+    width: 100%;
+    height: 140px !important; // Enforce fixed height
+    min-height: 140px;
+    border-radius: 0 !important;
+    transition: transform 0.3s ease;
+    overflow: visible !important; // Crucial for badge
+    text-decoration: none !important;
+    display: block !important; // Ensure it behaves like a bloc4
+
+    // Hover Scale
+    &:hover {
+        transform: scale(1.05);
+        z-index: 100 !important; // Ensure it pops above others
+
+        .challenge-card-border {
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6), 0 0 40px rgba(61, 28, 89, 0.4);
+        }
+
+        .shimmer {
+            animation: shimmer 0.8s forwards;
+        }
+    }
+
+    // Solved State
+    &.challenge-solved {
+        opacity: 1 !important;
+
+        .challenge-card-border {
+            background: linear-gradient(135deg, #00ff9d, #008751);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+        }
+
+        .challenge-card-bg {
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .challenge-status-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
+// 1. The container for visual elements (border/bg) that IS clipped
+.challenge-card-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none; // Let clicks pass through to content if needed
+}
+
+// 2. The Gradient Border
+.challenge-card-border {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #00f0ff, #7000ff);
+    z-index: 1;
+    // Clip ONLY the border/bg elements
+    clip-path: polygon(20px 0, 100% 0,
+            100% calc(100% - 20px), calc(100% - 20px) 100%,
+            0 100%, 0 20px);
+    transition: all 0.5s ease;
+    animation: borderPulse 4s infinite alternate;
+}
+
+// 3. The Glass Background (Inner Content)
+.challenge-card-bg {
+    position: absolute;
+    inset: 2px; // 2px border width
+    background: rgba(10, 14, 23, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 2;
+    // Clip inner content background to match border
+    clip-path: polygon(18px 0, 100% 0,
+            100% calc(100% - 18px), calc(100% - 18px) 100%,
+            0 100%, 0 18px);
+
+    // Flexbox for alignment
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+// 4. Content Styles - These live visually inside, but logically we position relative to the main button
+// Note: In HTML, these are inside .challenge-card-bg which IS clipped.
+// To fix the badge being clipped, we need to move it OUT of .challenge-card-bg in the HTML, or rely on overflow.
+
+.challenge-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+    margin: 0;
+    z-index: 5;
+    text-align: center;
+    position: relative;
+}
+
+.challenge-points-badge {
+    position: absolute;
+    top: -15px;
+    right: -15px; // Make it pop out more
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #0a0e17; // Solid bg to hide border line behind it
+    border: 2px solid #00f0ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00f0ff;
+    font-weight: 800;
+    font-size: 1.1rem;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+    z-index: 20; // High z-index
+    animation: floatBadge 3s ease-in-out infinite;
+}
+
+.challenge-category-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6rem;
+    opacity: 0.1;
+    color: #fff;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.challenge-status-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    font-size: 2rem;
+    color: #00ff9d;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    filter: drop-shadow(0 0 5px #00ff9d);
+}
+
+.shimmer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,
+            transparent 0%,
+            rgba(255, 255, 255, 0.15) 50%,
+            transparent 100%);
+    transform: skewX(-20deg) translateX(-150%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+// Animations unchanged
+@keyframes borderPulse {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 240, 255, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(112, 0, 255, 0.4);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: skewX(-20deg) translateX(-150%);
+    }
+
+    100% {
+        transform: skewX(-20deg) translateX(150%);
+    }
+}
+
+@keyframes floatBadge {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes orbitRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

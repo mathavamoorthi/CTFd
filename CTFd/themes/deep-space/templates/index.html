@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+{{ Assets.css("assets/scss/main.scss") }}
+<style>
+    .deep-space-landing {
+        text-align: center;
+        padding-top: 15vh;
+        animation: fadeIn 2s ease-in forwards;
+        position: relative;
+        z-index: 1;
+    }
+
+    .glitch-text {
+        font-size: 4rem;
+        font-weight: bold;
+        color: #00f0ff;
+        text-shadow: 2px 2px #3d1c59;
+        letter-spacing: 5px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .mission-brief {
+        font-family: 'Courier New', monospace;
+        color: #ffffff;
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        background: rgba(10, 14, 23, 0.8);
+        display: inline-block;
+        padding: 20px;
+        border: 1px dashed #00f0ff;
+    }
+
+    .btn-mission {
+        font-size: 1.5rem;
+        padding: 15px 40px;
+        border: 2px solid #00f0ff;
+        color: #00f0ff;
+        background: transparent;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+
+        &:hover {
+            background: #00f0ff;
+            color: #0a0e17;
+            box-shadow: 0 0 20px #00f0ff;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="deep-space-landing">
+                <div class="orbital-diagram" style="top: 20%; left: 50%; transform: translateX(-50%); opacity: 0.1;">
+                </div>
+
+                <h1 class="glitch-text">DEEP SPACE ANOMALY</h1>
+
+                <div class="mission-brief">
+                    <p>STATUS: CRITICAL</p>
+                    <p>SECTOR: 0xFF</p>
+                    <p>MISSION: SECURE THE FLAGS</p>
+                    <div class="loading-satellite"></div>
+                </div>
+
+                <div class="mission-controls">
+                    {% if User.id %}
+                    <a href="{{ url_for('challenges.listing') }}" class="btn btn-mission">
+                        Access Mission Control
+                    </a>
+                    {% else %}
+                    {% if Configs.registration_visibility != 'private' %}
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-mission me-3">
+                        Initiate User Protocol
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-mission">
+                        Identify
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ Assets.js("assets/js/page.js") }}
+{{ Assets.js("assets/js/starfield.js") }}
+{% endblock %}

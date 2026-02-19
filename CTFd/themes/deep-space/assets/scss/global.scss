@@ -1,0 +1,162 @@
+// Deep Space - Global Theme Components
+
+// Jumbotron (Header areas on Scoreboard/Challenges)
+.jumbotron {
+    background-color: rgba(10, 14, 23, 0.8) !important;
+    border-bottom: 1px solid #00f0ff;
+    color: #ffffff;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.1);
+
+    h1,
+    h2,
+    h3 {
+        color: #00f0ff;
+        text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+}
+
+// Global Containers (for content readability)
+.container {
+    position: relative;
+    // z-index removed to fix modal stacking context
+}
+
+// Cards (Challenge cards, etc)
+.card {
+    background-color: rgba(10, 14, 23, 0.85);
+    border: 1px solid #3d1c59;
+    color: #fff;
+
+    .card-header,
+    .card-footer {
+        background-color: rgba(61, 28, 89, 0.5);
+        border-color: #3d1c59;
+    }
+}
+
+// Buttons (Global override)
+.btn-primary {
+    background-color: rgba(0, 240, 255, 0.2);
+    border-color: #00f0ff;
+    color: #00f0ff;
+
+    &:hover {
+        background-color: #00f0ff;
+        color: #000;
+        box-shadow: 0 0 15px #00f0ff;
+    }
+}
+
+.btn-outline-secondary {
+    border-color: #3d1c59;
+    color: #00f0ff;
+
+    &:hover {
+        background-color: #3d1c59;
+        color: #fff;
+    }
+}
+
+// Tables (Scoreboard)
+.table {
+    color: #fff;
+
+    thead th {
+        border-bottom: 2px solid #00f0ff;
+        color: #00f0ff;
+    }
+
+    td,
+    th {
+        border-color: rgba(61, 28, 89, 0.5);
+    }
+
+    // Striped rows
+    &.table-striped>tbody>tr:nth-of-type(odd)>* {
+        background-color: rgba(0, 240, 255, 0.05);
+        color: #fff;
+    }
+
+    // Hover effect
+    tbody tr:hover {
+        background-color: rgba(0, 240, 255, 0.1) !important;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+
+        td,
+        th {
+            color: #fff;
+        }
+    }
+}
+
+// Forms
+.form-control {
+    background-color: rgba(10, 14, 23, 0.8);
+    border: 1px solid #3d1c59;
+    color: #fff;
+
+    &:focus {
+        background-color: rgba(10, 14, 23, 1);
+        border-color: #00f0ff;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+}
+
+// Nav Pills (Tabs on scoreboard)
+.nav-pills .nav-link {
+    color: #00f0ff;
+    background: transparent;
+    border: 1px solid transparent;
+
+    &.active {
+        background-color: rgba(0, 240, 255, 0.2);
+        border-color: #00f0ff;
+        color: #fff;
+    }
+
+    &:hover:not(.active) {
+        background-color: rgba(0, 240, 255, 0.1);
+    }
+}
+
+// Badges
+.badge {
+    &.bg-secondary {
+        background-color: #3d1c59 !important;
+        border: 1px solid #00f0ff;
+        color: #00f0ff;
+    }
+
+    &.bg-primary {
+        background-color: #00f0ff !important;
+        color: #000;
+    }
+}
+
+// Challenge Buttons (Grid view)
+.challenge-button {
+    background-color: rgba(10, 14, 23, 0.8) !important;
+    border: 1px solid #3d1c59;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: #00f0ff;
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        transform: translateY(-2px);
+    }
+
+    &.challenge-solved {
+        background-color: rgba(0, 240, 255, 0.15) !important;
+        border-color: #00f0ff;
+        opacity: 0.8;
+    }
+}
