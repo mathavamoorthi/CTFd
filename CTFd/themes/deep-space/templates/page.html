@@ -50,7 +50,7 @@
   <div class="deep-space-container">
     {% if request.path == '/' or request.path == '/index' %}
     <h1 class="ds-title">Deep Space Anomaly</h1>
-    <div class="ds-content">
+    
       {{ content | safe }}
     </div>
     {% else %}
