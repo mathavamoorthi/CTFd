@@ -354,6 +354,10 @@ def static_html(route):
     :param route:
     :return:
     """
+    # Show landing page for unauthenticated users on index
+    if route == "index" and current_user.authed() is False:
+        return render_template("landing.html")
+    
     page = get_page(route)
     if page is None:
         abort(404)

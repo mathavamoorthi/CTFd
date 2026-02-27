@@ -7,16 +7,15 @@ main {
 }
 
 .jumbotron {
-  padding: 2rem 1rem;
-  margin-bottom: 2rem;
+  padding: 1rem 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
-
-  background-color: var(--bs-dark);
+  background-color: transparent;
   color: var(--bs-white);
 }
 
 @media (min-width: 576px) {
   .jumbotron {
-    padding: 4rem 2rem;
+    padding: 1.5rem 2rem;
   }
 }

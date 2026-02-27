@@ -14,19 +14,32 @@
     overflow: visible !important; // Crucial for badge
     text-decoration: none !important;
     display: block !important; // Ensure it behaves like a bloc4
+    outline: none !important;
+    box-shadow: none !important;
 
     // Hover Scale
     &:hover {
         transform: scale(1.05);
         z-index: 100 !important; // Ensure it pops above others
+        outline: none !important;
+        box-shadow: none !important;
 
         .challenge-card-border {
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6), 0 0 40px rgba(61, 28, 89, 0.4);
+            box-shadow: 0 0 20px rgba(255, 140, 66, 0.6), 0 0 40px rgba(201, 68, 10, 0.4);
         }
 
         .shimmer {
             animation: shimmer 0.8s forwards;
         }
+    }
+
+    // Fix focus state - prevent blue stuck appearance
+    &:focus,
+    &:focus-visible,
+    &:active {
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
     }
 
     // Solved State
@@ -60,7 +73,7 @@
 .challenge-card-border {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #00f0ff, #7000ff);
+    background: linear-gradient(135deg, #ff8c42, #c9440a);
     z-index: 1;
     // Clip ONLY the border/bg elements
     clip-path: polygon(20px 0, 100% 0,
@@ -74,7 +87,7 @@
 .challenge-card-bg {
     position: absolute;
     inset: 2px; // 2px border width
-    background: rgba(10, 14, 23, 0.8);
+    background: rgba(26, 20, 16, 0.8);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 2;
@@ -102,7 +115,7 @@
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+    text-shadow: 0 0 10px rgba(255, 140, 66, 0.8);
     margin: 0;
     z-index: 5;
     text-align: center;
@@ -116,15 +129,15 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: #0a0e17; // Solid bg to hide border line behind it
-    border: 2px solid #00f0ff;
+    background: #1a1410; // Solid bg to hide border line behind it
+    border: 2px solid #ff8c42;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #00f0ff;
+    color: #ff8c42;
     font-weight: 800;
     font-size: 1.1rem;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+    box-shadow: 0 0 15px rgba(255, 140, 66, 0.5);
     z-index: 20; // High z-index
     animation: floatBadge 3s ease-in-out infinite;
 }
@@ -172,11 +185,11 @@
 // Animations unchanged
 @keyframes borderPulse {
     0% {
-        box-shadow: 0 0 5px rgba(0, 240, 255, 0.2);
+        box-shadow: 0 0 5px rgba(255, 140, 66, 0.2);
     }
 
     100% {
-        box-shadow: 0 0 15px rgba(112, 0, 255, 0.4);
+        box-shadow: 0 0 15px rgba(201, 68, 10, 0.4);
     }
 }
 

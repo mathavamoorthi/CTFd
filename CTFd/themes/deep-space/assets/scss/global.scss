@@ -2,23 +2,50 @@
 
 // Jumbotron (Header areas on Scoreboard/Challenges)
 .jumbotron {
-    background-color: rgba(10, 14, 23, 0.8) !important;
-    border-bottom: 1px solid #00f0ff;
+    background-color: transparent !important;
+    border: none !important;
     color: #ffffff;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1.5rem !important;
     position: relative;
     z-index: 1;
-    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.1);
+    box-shadow: none !important;
 
     h1,
     h2,
     h3 {
-        color: #00f0ff;
-        text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        color: #ffffff;
+        font-weight: 900;
+        font-size: 2.5rem;
+        letter-spacing: 3px;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        text-shadow: 
+            -1px -1px 0 rgba(255, 140, 66, 0.8),
+            1px -1px 0 rgba(255, 140, 66, 0.8),
+            -1px 1px 0 rgba(255, 140, 66, 0.8),
+            1px 1px 0 rgba(255, 140, 66, 0.8),
+            -2px 0 0 rgba(201, 68, 10, 0.6),
+            2px 0 0 rgba(201, 68, 10, 0.6),
+            0 -2px 0 rgba(201, 68, 10, 0.6),
+            0 2px 0 rgba(201, 68, 10, 0.6),
+            0 0 15px rgba(255, 140, 66, 0.5);
+        transition: all 0.3s ease;
+    }
+
+    h1:hover,
+    h2:hover,
+    h3:hover {
+        text-shadow: 
+            -2px -2px 0 rgba(255, 140, 66, 1),
+            2px -2px 0 rgba(255, 140, 66, 1),
+            -2px 2px 0 rgba(255, 140, 66, 1),
+            2px 2px 0 rgba(255, 140, 66, 1),
+            -3px 0 0 rgba(201, 68, 10, 0.9),
+            3px 0 0 rgba(201, 68, 10, 0.9),
+            0 -3px 0 rgba(201, 68, 10, 0.9),
+            0 3px 0 rgba(201, 68, 10, 0.9),
+            0 0 25px rgba(255, 140, 66, 0.8);
     }
 }
 
@@ -30,37 +57,57 @@
 
 // Cards (Challenge cards, etc)
 .card {
-    background-color: rgba(10, 14, 23, 0.85);
-    border: 1px solid #3d1c59;
-    color: #fff;
+    background-color: rgba(26, 20, 16, 0.2) !important;
+    border: 1px solid rgba(201, 68, 10, 0.5) !important;
+    color: #fff !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
 
     .card-header,
     .card-footer {
-        background-color: rgba(61, 28, 89, 0.5);
-        border-color: #3d1c59;
+        background-color: rgba(201, 68, 10, 0.1) !important;
+        border-color: rgba(201, 68, 10, 0.3) !important;
+    }
+
+    .card-body {
+        background-color: transparent !important;
     }
 }
 
 // Buttons (Global override)
 .btn-primary {
-    background-color: rgba(0, 240, 255, 0.2);
-    border-color: #00f0ff;
-    color: #00f0ff;
+    background-color: rgba(255, 140, 66, 0.2);
+    border-color: #ff8c42;
+    color: #ff8c42;
 
     &:hover {
-        background-color: #00f0ff;
+        background-color: #ff8c42;
         color: #000;
-        box-shadow: 0 0 15px #00f0ff;
+        box-shadow: 0 0 15px #ff8c42;
+    }
+
+    &:focus,
+    &:focus-visible {
+        outline: none !important;
+        box-shadow: 0 0 15px rgba(255, 140, 66, 0.5) !important;
+        background-color: rgba(255, 140, 66, 0.3) !important;
     }
 }
 
 .btn-outline-secondary {
-    border-color: #3d1c59;
-    color: #00f0ff;
+    border-color: #c9440a;
+    color: #ff8c42;
 
     &:hover {
-        background-color: #3d1c59;
+        background-color: #c9440a;
         color: #fff;
+    }
+
+    &:focus,
+    &:focus-visible {
+        outline: none !important;
+        box-shadow: 0 0 10px rgba(201, 68, 10, 0.5) !important;
     }
 }
 
@@ -69,25 +116,25 @@
     color: #fff;
 
     thead th {
-        border-bottom: 2px solid #00f0ff;
-        color: #00f0ff;
+        border-bottom: 2px solid #ff8c42;
+        color: #ff8c42;
     }
 
     td,
     th {
-        border-color: rgba(61, 28, 89, 0.5);
+        border-color: rgba(201, 68, 10, 0.3);
     }
 
     // Striped rows
     &.table-striped>tbody>tr:nth-of-type(odd)>* {
-        background-color: rgba(0, 240, 255, 0.05);
+        background-color: rgba(255, 140, 66, 0.05);
         color: #fff;
     }
 
     // Hover effect
     tbody tr:hover {
-        background-color: rgba(0, 240, 255, 0.1) !important;
-        box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        background-color: rgba(255, 140, 66, 0.1) !important;
+        box-shadow: 0 0 10px rgba(255, 140, 66, 0.2);
 
         td,
         th {
@@ -98,45 +145,45 @@
 
 // Forms
 .form-control {
-    background-color: rgba(10, 14, 23, 0.8);
-    border: 1px solid #3d1c59;
+    background-color: rgba(26, 20, 16, 0.8);
+    border: 1px solid #c9440a;
     color: #fff;
 
     &:focus {
-        background-color: rgba(10, 14, 23, 1);
-        border-color: #00f0ff;
+        background-color: rgba(26, 20, 16, 1);
+        border-color: #ff8c42;
         color: #fff;
-        box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        box-shadow: 0 0 10px rgba(255, 140, 66, 0.3);
     }
 }
 
 // Nav Pills (Tabs on scoreboard)
 .nav-pills .nav-link {
-    color: #00f0ff;
+    color: #ff8c42;
     background: transparent;
     border: 1px solid transparent;
 
     &.active {
-        background-color: rgba(0, 240, 255, 0.2);
-        border-color: #00f0ff;
+        background-color: rgba(255, 140, 66, 0.2);
+        border-color: #ff8c42;
         color: #fff;
     }
 
     &:hover:not(.active) {
-        background-color: rgba(0, 240, 255, 0.1);
+        background-color: rgba(255, 140, 66, 0.1);
     }
 }
 
 // Badges
 .badge {
     &.bg-secondary {
-        background-color: #3d1c59 !important;
-        border: 1px solid #00f0ff;
-        color: #00f0ff;
+        background-color: #c9440a !important;
+        border: 1px solid #ff8c42;
+        color: #ff8c42;
     }
 
     &.bg-primary {
-        background-color: #00f0ff !important;
+        background-color: #ff8c42 !important;
         color: #000;
     }
 }

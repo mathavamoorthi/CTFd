@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KI CTF - Capture The Flag</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{{ Configs.ctf_small_icon }}" type="image/x-icon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-image: url("{{ url_for('views.themes', theme='deep-space', path='assets/sunset_red.png') }}");
+      --primary-orange: #ff8c42;
+      --primary-red: #c9440a;
+      --dark-bg: #1a1410;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-image: linear-gradient(135deg, rgba(255, 140, 66, 0.1) 0%, rgba(139, 69, 19, 0.2) 100%), var(--bg-image);
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: linear-gradient(135deg, rgba(255, 140, 66, 0.1) 0%, rgba(139, 69, 19, 0.2) 100%), var(--bg-image);
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      pointer-events: none;
+    }
+
+    .container-main {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeInDown 1s ease-in;
+    }
+
+    .hero h1 {
+      font-size: 6.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 12px;
+      margin-bottom: 10px;
+      color: #ffffff;
+      line-height: 1.1;
+      transition: all 0.4s ease;
+      animation: heroGlow 2.5s ease-in-out infinite;
+      text-shadow: 
+        -2px -2px 0 rgba(255, 140, 66, 0.8),
+        2px -2px 0 rgba(255, 140, 66, 0.8),
+        -2px 2px 0 rgba(255, 140, 66, 0.8),
+        2px 2px 0 rgba(255, 140, 66, 0.8),
+        -4px 0 0 rgba(201, 68, 10, 0.6),
+        4px 0 0 rgba(201, 68, 10, 0.6),
+        0 -4px 0 rgba(201, 68, 10, 0.6),
+        0 4px 0 rgba(201, 68, 10, 0.6),
+        0 0 30px rgba(255, 140, 66, 0.5),
+        0 0 60px rgba(201, 68, 10, 0.3);
+      filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.4));
+    }
+
+    .hero h1 .year {
+      display: block;
+      font-size: 2.5rem;
+      letter-spacing: 6px;
+      margin-top: 15px;
+      color: #ffb366;
+      opacity: 0.95;
+    }
+
+    @keyframes heroGlow {
+      0%, 100% {
+        text-shadow: 
+          -2px -2px 0 rgba(255, 140, 66, 0.8),
+          2px -2px 0 rgba(255, 140, 66, 0.8),
+          -2px 2px 0 rgba(255, 140, 66, 0.8),
+          2px 2px 0 rgba(255, 140, 66, 0.8),
+          -4px 0 0 rgba(201, 68, 10, 0.6),
+          4px 0 0 rgba(201, 68, 10, 0.6),
+          0 -4px 0 rgba(201, 68, 10, 0.6),
+          0 4px 0 rgba(201, 68, 10, 0.6),
+          0 0 30px rgba(255, 140, 66, 0.5),
+          0 0 60px rgba(201, 68, 10, 0.3);
+      }
+      50% {
+        text-shadow: 
+          -2px -2px 0 rgba(255, 140, 66, 1),
+          2px -2px 0 rgba(255, 140, 66, 1),
+          -2px 2px 0 rgba(255, 140, 66, 1),
+          2px 2px 0 rgba(255, 140, 66, 1),
+          -5px 0 0 rgba(201, 68, 10, 0.8),
+          5px 0 0 rgba(201, 68, 10, 0.8),
+          0 -5px 0 rgba(201, 68, 10, 0.8),
+          0 5px 0 rgba(201, 68, 10, 0.8),
+          0 0 40px rgba(255, 140, 66, 0.7),
+          0 0 80px rgba(201, 68, 10, 0.5);
+      }
+    }
+
+    .hero h1:hover {
+      transform: scale(1.05) translateY(-8px);
+      letter-spacing: 14px;
+      text-shadow: 
+        -3px -3px 0 rgba(255, 140, 66, 1),
+        3px -3px 0 rgba(255, 140, 66, 1),
+        -3px 3px 0 rgba(255, 140, 66, 1),
+        3px 3px 0 rgba(255, 140, 66, 1),
+        -6px 0 0 rgba(201, 68, 10, 0.9),
+        6px 0 0 rgba(201, 68, 10, 0.9),
+        0 -6px 0 rgba(201, 68, 10, 0.9),
+        0 6px 0 rgba(201, 68, 10, 0.9),
+        0 0 50px rgba(255, 140, 66, 0.9),
+        0 0 100px rgba(201, 68, 10, 0.7);
+    }
+
+    .hero .subtitle {
+      font-size: 1.5rem;
+      color: #ffb366;
+      margin-bottom: 30px;
+      font-weight: 300;
+      letter-spacing: 3px;
+    }
+
+    .event-info {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 40px auto;
+      flex-wrap: wrap;
+    }
+
+    .info-card {
+      background: rgba(26, 20, 16, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 20px 30px;
+      border: 2px solid rgba(255, 140, 66, 0.3);
+      border-radius: 10px;
+      min-width: 200px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+      border-color: var(--primary-orange);
+      box-shadow: 0 8px 25px rgba(255, 140, 66, 0.3);
+      transform: translateY(-5px);
+    }
+
+    .info-card .label {
+      font-size: 0.9rem;
+      color: #ffb366;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .info-card .value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-orange);
+    }
+
+    .cta-section {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .start-btn {
+      padding: 15px 50px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--primary-orange), var(--primary-red));
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(255, 140, 66, 0.3);
+    }
+
+    .start-btn:hover {
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 140, 66, 0.5);
+      color: #fff;
+    }
+
+    .sponsors-section {
+      background: rgba(26, 20, 16, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 60px 40px;
+      border: 2px solid rgba(255, 140, 66, 0.2);
+      border-radius: 10px;
+      margin: 60px auto;
+      max-width: 1200px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .sponsors-section h2 {
+      font-size: 2.5rem;
+      color: var(--primary-orange);
+      margin-bottom: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(255, 140, 66, 0.3);
+    }
+
+    .sponsors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 50px;
+      margin-bottom: 40px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sponsor-logo {
+      background: rgba(26, 20, 16, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 40px 30px;
+      border: 2px solid rgba(255, 140, 66, 0.3);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+    }
+
+    .sponsor-logo:hover {
+      border-color: var(--primary-orange);
+      box-shadow: 0 8px 25px rgba(255, 140, 66, 0.3);
+      transform: translateY(-5px);
+      background: rgba(26, 20, 16, 0.8);
+    }
+
+    .sponsor-logo img,
+    .sponsor-logo svg {
+      max-width: 100%;
+      max-height: 120px;
+      filter: brightness(1.1);
+      transition: filter 0.3s ease;
+    }
+
+    .sponsor-logo:hover img,
+    .sponsor-logo:hover svg {
+      filter: brightness(1.4) drop-shadow(0 0 10px rgba(255, 140, 66, 0.5));
+    }
+
+    .about-section, .features-section {
+      background: rgba(26, 20, 16, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 60px 40px;
+      border: 2px solid rgba(255, 140, 66, 0.2);
+      border-radius: 10px;
+      margin: 60px auto;
+      max-width: 1200px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .about-section h2, .features-section h2 {
+      font-size: 2.5rem;
+      color: var(--primary-orange);
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(255, 140, 66, 0.3);
+    }
+
+    .about-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #eee;
+      margin-bottom: 15px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    .feature-card {
+      background: rgba(255, 140, 66, 0.1);
+      border: 1px solid rgba(255, 140, 66, 0.3);
+      padding: 25px;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      background: rgba(255, 140, 66, 0.2);
+      border-color: var(--primary-orange);
+      transform: translateY(-3px);
+    }
+
+    .feature-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      color: var(--primary-orange);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .feature-card p {
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    .contact-section {
+      text-align: center;
+      max-width: 800px;
+      margin: 60px auto 40px;
+      background: rgba(26, 20, 16, 0.6);
+      padding: 40px;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 140, 66, 0.2);
+    }
+
+    .contact-section h2 {
+      font-size: 2.5rem;
+      color: var(--primary-orange);
+      margin-bottom: 30px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      font-size: 2rem;
+      text-decoration: none;
+      color: var(--primary-orange);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .social-link:hover {
+      transform: scale(1.2) translateY(-5px);
+      text-shadow: 0 0 10px rgba(255, 140, 66, 0.8);
+    }
+
+    .footer-section {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      color: rgba(255, 255, 255, 0.6);
+      border-top: 1px solid rgba(255, 140, 66, 0.2);
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.8rem;
+        letter-spacing: 4px;
+      }
+
+      .hero h1 .year {
+        font-size: 1.5rem;
+        margin-top: 8px;
+      }
+
+      .hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .event-info {
+        gap: 20px;
+      }
+
+      .info-card {
+        min-width: 150px;
+        padding: 15px 20px;
+      }
+
+      .info-card .value {
+        font-size: 1.3rem;
+      }
+
+      .sponsors-section h2 {
+        font-size: 1.8rem;
+      }
+
+      .sponsors-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 20px;
+      }
+
+      .sponsor-logo {
+        min-height: 100px;
+        padding: 20px 10px;
+      }
+
+      .sponsor-logo img,
+      .sponsor-logo svg {
+        max-height: 60px;
+      }
+
+      .about-section h2,
+      .features-section h2,
+      .contact-section h2 {
+        font-size: 1.8rem;
+      }
+
+      .about-section,
+      .features-section,
+      .sponsors-section,
+      .contact-section {
+        padding: 30px 20px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-main">
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>KI CTF<span class="year">2026</span></h1>
+      <p class="subtitle">Capture The Flag Competition</p>
+      
+      <div class="event-info">
+        <div class="info-card">
+          <div class="label">Event Date</div>
+          <div class="value">3 Mar 2026</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Status</div>
+          <div class="value">Coming Soon</div>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <a href="{{ url_for('views.static_html', route='/login') }}" class="start-btn">Start CTF</a>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-section">
+      <h2>🎯 About KI CTF</h2>
+      <p>
+        Welcome to KI CTF, an exciting Capture The Flag competition designed to challenge your cybersecurity skills 
+        and knowledge. This event brings together security enthusiasts, students, and professionals from around the world.
+      </p>
+      <p>
+        Whether you're a beginner looking to learn or an experienced security professional seeking new challenges, 
+        KI CTF offers a dynamic environment to compete, collaborate, and showcase your talents. Join teams, solve 
+        challenges, and climb the leaderboard to prove your expertise.
+      </p>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+      <h2>💡 Why Participate?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="icon">🎓</div>
+          <h3>Learn Security</h3>
+          <p>Enhance your cybersecurity skills through hands-on challenges and real-world scenarios.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🏆</div>
+          <h3>Win Prizes</h3>
+          <p>Compete for exciting prizes and recognition in the cybersecurity community.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">👥</div>
+          <h3>Team Play</h3>
+          <p>Form teams with friends and collaborate to solve complex security challenges together.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📊</div>
+          <h3>Track Progress</h3>
+          <p>Monitor your performance with real-time scoreboards and detailed analytics.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">⚡</div>
+          <h3>Live Scoring</h3>
+          <p>Experience dynamic, real-time scoring as you solve challenges and compete with others.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🎯</div>
+          <h3>Diverse Challenges</h3>
+          <p>Tackle challenges across multiple categories from beginner to advanced difficulty levels.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sponsors Section -->
+    <div class="sponsors-section">
+      <h2>Our Sponsors</h2>
+      <div class="sponsors-grid">
+        <div class="sponsor-logo">
+          <img src="{{ url_for('views.themes', theme='deep-space', path='assets/logo/2.svg') }}" alt="Sponsor 1">
+        </div>
+        <div class="sponsor-logo">
+          <img src="{{ url_for('views.themes', theme='deep-space', path='assets/logo/alteredSecurity.svg') }}" alt="Altered Security">
+        </div>
+        <div class="sponsor-logo">
+          <img src="{{ url_for('views.themes', theme='deep-space', path='assets/logo/APISEC.svg') }}" alt="APISEC">
+        </div>
+        <div class="sponsor-logo">
+          <img src="{{ url_for('views.themes', theme='deep-space', path='assets/logo/htb-chennai.svg') }}" alt="Hack The Box Chennai">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
