@@ -43,6 +43,10 @@ export default defineConfig({
               src: "./assets/sounds/**",
               dest: "static/sounds",
             },
+            {
+              src: "./assets/logo/**",
+              dest: "static/logo",
+            },
           ],
           hook: "writeBundle",
         }),
@@ -73,3 +77,4 @@ export default defineConfig({
     },
   },
 });
+

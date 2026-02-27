@@ -291,9 +291,15 @@
       border-color: rgba(255, 140, 66, 0.4) !important;
       color: #fff !important;
     }
-
     .form-control::placeholder {
       color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    /* Keep native select option lists readable (country picker, captain picker, etc.) */
+    .form-select option,
+    .form-select optgroup {
+      color: #111 !important;
+      background-color: #fff !important;
     }
 
     .form-control:focus,
@@ -357,5 +363,6 @@
 </body>
 
 </html>
+
 
 

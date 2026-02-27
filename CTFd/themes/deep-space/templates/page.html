@@ -3,45 +3,177 @@
 {% block stylesheets %}
 {{ super() }}
 <style>
-  .deep-space-container {
-    text-align: center;
-    padding-top: 10vh;
-    animation: fadeIn 1.5s ease-in forwards;
-    position: relative;
-    z-index: 1;
+  .rules-shell {
+    max-width: 1100px;
+    margin: 4rem auto 3rem;
+    padding: 0 1rem 2rem;
+    animation: fadeInUp 0.6s ease-out forwards;
   }
 
-  ... .ds-title {
-    font-size: 3.5rem;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 
-      -2px -2px 0 rgba(255, 140, 66, 0.8),
-      -2px 2px 0 rgba(255, 140, 66, 0.8),
-      2px -2px 0 rgba(255, 140, 66, 0.8),
-      2px 2px 0 rgba(255, 140, 66, 0.8),
-      -3px 0 0 rgba(201, 68, 10, 0.6),
-      3px 0 0 rgba(201, 68, 10, 0.6),
-      0 0 15px rgba(255, 140, 66, 0.5);
-    letter-spacing: 3px;
-    margin-bottom: 30px;
-    text-transform: uppercase;
+  .rules-mode-toggle {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.9rem;
   }
 
-  .ds-content {
-    background: rgba(26, 20, 16, 0.5);
-    border: 1px solid rgba(255, 140, 66, 0.3);
-    padding: 30px;
-    border-radius: 5px;
-    margin-top: 20px;
+  .rules-mode-link {
+    border: 1px solid rgba(255, 140, 66, 0.4);
+    background: rgba(26, 20, 16, 0.55);
+    color: #ffd9bd;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 0.42rem 0.9rem;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .rules-mode-link:hover {
     color: #fff;
-    box-shadow: 0 0 20px rgba(255, 140, 66, 0.2);
+    border-color: rgba(255, 140, 66, 0.8);
+    box-shadow: 0 0 14px rgba(255, 140, 66, 0.24);
   }
 
-  @keyframes fadeIn {
+  .rules-hero {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(145deg, rgba(26, 20, 16, 0.7), rgba(45, 28, 20, 0.55));
+    border: 1px solid rgba(255, 140, 66, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .rules-title {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.9rem, 4vw, 3.1rem);
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 0 0 24px rgba(255, 140, 66, 0.35);
+  }
+
+  .rules-subtitle {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #ffd9bd;
+  }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .rules-card {
+    background: rgba(20, 15, 12, 0.72);
+    border: 1px solid rgba(255, 140, 66, 0.26);
+    border-radius: 14px;
+    padding: 1.15rem 1.15rem 1rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+  }
+
+  .rules-card.full {
+    grid-column: 1 / -1;
+  }
+
+  .rules-card h3 {
+    margin: 0 0 0.7rem;
+    color: #ffcf9f;
+    font-size: 1.15rem;
+    letter-spacing: 0.2px;
+  }
+
+  .rules-card p {
+    margin: 0;
+    color: #e7dcd4;
+    line-height: 1.65;
+  }
+
+  .rules-list,
+  .rules-steps {
+    margin: 0;
+    padding-left: 1.15rem;
+    color: #e7dcd4;
+    line-height: 1.6;
+  }
+
+  .rules-list li,
+  .rules-steps li {
+    margin-bottom: 0.45rem;
+  }
+
+  .rules-list li:last-child,
+  .rules-steps li:last-child {
+    margin-bottom: 0;
+  }
+
+  .rules-callout {
+    margin-top: 1rem;
+    padding: 0.95rem 1rem;
+    border-left: 4px solid #ff8c42;
+    background: rgba(255, 140, 66, 0.12);
+    border-radius: 8px;
+    color: #ffe6cf;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .rules-shell-projector {
+    max-width: 1320px;
+    margin-top: 3.2rem;
+    padding-bottom: 3rem;
+  }
+
+  .rules-shell-projector .rules-hero {
+    padding: 2.6rem 2rem;
+  }
+
+  .rules-shell-projector .rules-title {
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    letter-spacing: 1.5px;
+  }
+
+  .rules-shell-projector .rules-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .rules-shell-projector .rules-grid {
+    gap: 1.35rem;
+  }
+
+  .rules-shell-projector .rules-card {
+    border-radius: 16px;
+    padding: 1.55rem;
+  }
+
+  .rules-shell-projector .rules-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.95rem;
+  }
+
+  .rules-shell-projector .rules-card p,
+  .rules-shell-projector .rules-list,
+  .rules-shell-projector .rules-steps {
+    font-size: 1.16rem;
+    line-height: 1.8;
+  }
+
+  .rules-shell-projector .rules-list,
+  .rules-shell-projector .rules-steps {
+    padding-left: 1.35rem;
+  }
+
+  .rules-shell-projector .rules-callout {
+    margin-top: 1.2rem;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+  }
+
+  @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(14px);
     }
 
     to {
@@ -49,36 +181,81 @@
       transform: translateY(0);
     }
   }
+
+  @media (max-width: 900px) {
+    .rules-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .rules-shell,
+    .rules-shell-projector {
+      margin-top: 3.25rem;
+      max-width: 1100px;
+    }
+
+    .rules-shell-projector .rules-title {
+      font-size: clamp(1.95rem, 7vw, 2.65rem);
+    }
+
+    .rules-shell-projector .rules-subtitle {
+      font-size: 1.05rem;
+    }
+
+    .rules-shell-projector .rules-card h3 {
+      font-size: 1.18rem;
+    }
+
+    .rules-shell-projector .rules-card p,
+    .rules-shell-projector .rules-list,
+    .rules-shell-projector .rules-steps {
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+  }
 </style>
 {% endblock %}
 
 {% block content %}
+{% set projector_mode = request.args.get("display") == "projector" %}
 <div class="container">
-  <div class="deep-space-container">
+  <div class="rules-shell{% if projector_mode %} rules-shell-projector{% endif %}">
     {% if request.path == '/' or request.path == '/index' %}
-    <h1 class="ds-title">KI CTF 2026 - Game Rules</h1>
-    
-    <div class="ds-content">
-      <h2 style="color: #ff8c42; margin-bottom: 20px; font-size: 1.8rem;">Welcome to KI CTF 2026</h2>
-      
-      <div style="text-align: left; max-width: 800px; margin: 0 auto;">
-        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">🎯 What is CTF?</h3>
-        <p style="line-height: 1.6; color: #ccc;">
-          Capture The Flag (CTF) is a cybersecurity competition where participants solve security challenges to find and submit flags (special strings). 
+    <div class="rules-mode-toggle">
+      {% if projector_mode %}
+      <a class="rules-mode-link" href="{{ request.path }}">Switch to Normal View</a>
+      {% else %}
+      <a class="rules-mode-link" href="{{ request.path }}?display=projector">Switch to Projector View</a>
+      {% endif %}
+    </div>
+
+    <section class="rules-hero">
+      <h1 class="rules-title">KI CTF 2026 - Game Rules</h1>
+      <p class="rules-subtitle">Welcome to KI CTF 2026</p>
+    </section>
+
+    <section class="rules-grid">
+      <article class="rules-card full">
+        <h3>&#127919; What is CTF?</h3>
+        <p>
+          Capture The Flag (CTF) is a cybersecurity competition where participants solve security challenges to find and submit flags (special strings).
           Each correct flag submission earns points and moves you up the scoreboard!
         </p>
-        
-        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">📋 Basic Rules</h3>
-        <ul style="line-height: 1.8; color: #ccc; text-align: left;">
+      </article>
+
+      <article class="rules-card">
+        <h3>&#128203; Basic Rules</h3>
+        <ul class="rules-list">
           <li><strong>Objective:</strong> Find and submit flags from various security challenges</li>
           <li><strong>Scoring:</strong> Each challenge has a point value. Harder challenges are worth more points</li>
           <li><strong>Submission:</strong> Submit flags through the challenge interface to earn points</li>
           <li><strong>Leaderboard:</strong> Ranked by total points. First to submit a challenge may earn bonus points</li>
           <li><strong>Teams:</strong> Compete individually or as part of a team (if enabled)</li>
         </ul>
-        
-        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">⚠️ Important Guidelines</h3>
-        <ul style="line-height: 1.8; color: #ccc; text-align: left;">
+      </article>
+
+      <article class="rules-card">
+        <h3>&#9888;&#65039; Important Guidelines</h3>
+        <ul class="rules-list">
           <li>Do not attempt to hack or exploit the CTF platform itself</li>
           <li>Do not share flags or solutions with other participants</li>
           <li>Use only provided resources and permitted tools</li>
@@ -86,18 +263,22 @@
           <li>No automated scanning or brute-force attacks unless explicitly allowed</li>
           <li>Cheating or rule violations will result in disqualification</li>
         </ul>
-        
-        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">🏆 Challenge Categories</h3>
-        <ul style="line-height: 1.8; color: #ccc; text-align: left;">
+      </article>
+
+      <article class="rules-card">
+        <h3>&#127942; Challenge Categories</h3>
+        <ul class="rules-list">
           <li><strong>Web Exploitation:</strong> Find vulnerabilities in web applications</li>
           <li><strong>Cryptography:</strong> Break encryption and decode messages</li>
           <li><strong>Reverse Engineering:</strong> Analyze binaries and find hidden secrets</li>
           <li><strong>Forensics:</strong> Investigate files and recover hidden information</li>
           <li><strong>Binary Exploitation:</strong> Exploit memory-based vulnerabilities</li>
         </ul>
-        
-        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">🚀 Getting Started</h3>
-        <ol style="line-height: 1.8; color: #ccc; text-align: left;">
+      </article>
+
+      <article class="rules-card">
+        <h3>&#128640; Getting Started</h3>
+        <ol class="rules-steps">
           <li>Navigate to the <strong>Challenges</strong> page</li>
           <li>Choose a challenge that interests you</li>
           <li>Read the challenge description carefully</li>
@@ -105,9 +286,11 @@
           <li>Submit the flag to earn points</li>
           <li>Check the <strong>Scoreboard</strong> to see your ranking</li>
         </ol>
-        
-        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">💡 Tips for Success</h3>
-        <ul style="line-height: 1.8; color: #ccc; text-align: left;">
+      </article>
+
+      <article class="rules-card full">
+        <h3>&#128161; Tips for Success</h3>
+        <ul class="rules-list">
           <li>Start with easier challenges to build confidence</li>
           <li>Read challenge hints carefully</li>
           <li>Collaborate with teammates (if applicable)</li>
@@ -115,13 +298,11 @@
           <li>Document your approach for future reference</li>
           <li>Have fun and learn something new!</li>
         </ul>
-        
-        <div style="margin-top: 30px; padding: 15px; background: rgba(255, 140, 66, 0.1); border-left: 3px solid #ff8c42; color: #ffeb99;">
-          <strong>⚡ Good luck and happy hacking! May the best hacker win! ⚡</strong>
+        <div class="rules-callout">
+          &#9889; Good luck and happy hacking! May the best hacker win! &#9889;
         </div>
-      </div>
-    </div>
-    </div>
+      </article>
+    </section>
     {% else %}
     {{ content | safe }}
     {% endif %}
