@@ -14,21 +14,28 @@
   ... .ds-title {
     font-size: 3.5rem;
     font-weight: bold;
-    color: #00f0ff;
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    color: #ffffff;
+    text-shadow: 
+      -2px -2px 0 rgba(255, 140, 66, 0.8),
+      -2px 2px 0 rgba(255, 140, 66, 0.8),
+      2px -2px 0 rgba(255, 140, 66, 0.8),
+      2px 2px 0 rgba(255, 140, 66, 0.8),
+      -3px 0 0 rgba(201, 68, 10, 0.6),
+      3px 0 0 rgba(201, 68, 10, 0.6),
+      0 0 15px rgba(255, 140, 66, 0.5);
     letter-spacing: 3px;
     margin-bottom: 30px;
     text-transform: uppercase;
   }
 
   .ds-content {
-    background: rgba(10, 14, 23, 0.7);
-    border: 1px solid rgba(0, 240, 255, 0.3);
+    background: rgba(26, 20, 16, 0.5);
+    border: 1px solid rgba(255, 140, 66, 0.3);
     padding: 30px;
     border-radius: 5px;
     margin-top: 20px;
     color: #fff;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+    box-shadow: 0 0 20px rgba(255, 140, 66, 0.2);
   }
 
   @keyframes fadeIn {
@@ -49,9 +56,71 @@
 <div class="container">
   <div class="deep-space-container">
     {% if request.path == '/' or request.path == '/index' %}
-    <h1 class="ds-title">Deep Space Anomaly</h1>
+    <h1 class="ds-title">KI CTF 2026 - Game Rules</h1>
     
-      {{ content | safe }}
+    <div class="ds-content">
+      <h2 style="color: #ff8c42; margin-bottom: 20px; font-size: 1.8rem;">Welcome to KI CTF 2026</h2>
+      
+      <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">🎯 What is CTF?</h3>
+        <p style="line-height: 1.6; color: #ccc;">
+          Capture The Flag (CTF) is a cybersecurity competition where participants solve security challenges to find and submit flags (special strings). 
+          Each correct flag submission earns points and moves you up the scoreboard!
+        </p>
+        
+        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">📋 Basic Rules</h3>
+        <ul style="line-height: 1.8; color: #ccc; text-align: left;">
+          <li><strong>Objective:</strong> Find and submit flags from various security challenges</li>
+          <li><strong>Scoring:</strong> Each challenge has a point value. Harder challenges are worth more points</li>
+          <li><strong>Submission:</strong> Submit flags through the challenge interface to earn points</li>
+          <li><strong>Leaderboard:</strong> Ranked by total points. First to submit a challenge may earn bonus points</li>
+          <li><strong>Teams:</strong> Compete individually or as part of a team (if enabled)</li>
+        </ul>
+        
+        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">⚠️ Important Guidelines</h3>
+        <ul style="line-height: 1.8; color: #ccc; text-align: left;">
+          <li>Do not attempt to hack or exploit the CTF platform itself</li>
+          <li>Do not share flags or solutions with other participants</li>
+          <li>Use only provided resources and permitted tools</li>
+          <li>Respect all applicable laws and regulations</li>
+          <li>No automated scanning or brute-force attacks unless explicitly allowed</li>
+          <li>Cheating or rule violations will result in disqualification</li>
+        </ul>
+        
+        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">🏆 Challenge Categories</h3>
+        <ul style="line-height: 1.8; color: #ccc; text-align: left;">
+          <li><strong>Web Exploitation:</strong> Find vulnerabilities in web applications</li>
+          <li><strong>Cryptography:</strong> Break encryption and decode messages</li>
+          <li><strong>Reverse Engineering:</strong> Analyze binaries and find hidden secrets</li>
+          <li><strong>Forensics:</strong> Investigate files and recover hidden information</li>
+          <li><strong>Binary Exploitation:</strong> Exploit memory-based vulnerabilities</li>
+        </ul>
+        
+        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">🚀 Getting Started</h3>
+        <ol style="line-height: 1.8; color: #ccc; text-align: left;">
+          <li>Navigate to the <strong>Challenges</strong> page</li>
+          <li>Choose a challenge that interests you</li>
+          <li>Read the challenge description carefully</li>
+          <li>Work through the challenge to find the flag</li>
+          <li>Submit the flag to earn points</li>
+          <li>Check the <strong>Scoreboard</strong> to see your ranking</li>
+        </ol>
+        
+        <h3 style="color: #ffeb99; margin-top: 20px; margin-bottom: 10px;">💡 Tips for Success</h3>
+        <ul style="line-height: 1.8; color: #ccc; text-align: left;">
+          <li>Start with easier challenges to build confidence</li>
+          <li>Read challenge hints carefully</li>
+          <li>Collaborate with teammates (if applicable)</li>
+          <li>Use common security tools and techniques</li>
+          <li>Document your approach for future reference</li>
+          <li>Have fun and learn something new!</li>
+        </ul>
+        
+        <div style="margin-top: 30px; padding: 15px; background: rgba(255, 140, 66, 0.1); border-left: 3px solid #ff8c42; color: #ffeb99;">
+          <strong>⚡ Good luck and happy hacking! May the best hacker win! ⚡</strong>
+        </div>
+      </div>
+    </div>
     </div>
     {% else %}
     {{ content | safe }}

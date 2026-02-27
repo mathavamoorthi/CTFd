@@ -41,7 +41,7 @@
   {{ Configs.theme_header }}
   <style>
     :root {
-      --bg-image: url("{{ url_for('views.themes', theme='deep-space', path='assets/sunset_red.png') }}");
+      --bg-image: url("{{ url_for('views.themes', theme='deep-space', path='img/sunset_red.png') }}");
       --overlay-start: rgba(255, 140, 66, 0.1);
       --overlay-end: rgba(139, 69, 19, 0.2);
       --constellation: url("{{ url_for('views.themes', theme='deep-space', path='assets/constellation.c4b87353.svg') }}");
@@ -93,9 +93,18 @@
       opacity: 0.3;
     }
 
-    main, .navbar, .footer, .container {
+    .navbar, .footer {
       position: relative;
       z-index: 2;
+    }
+
+    main,
+    .container {
+      position: relative;
+    }
+
+    .footer {
+      display: none !important;
     }
 
     /* Navbar styling */
@@ -163,37 +172,116 @@
       z-index: 1040 !important;
       pointer-events: auto !important;
       cursor: pointer !important;
+      background-color: rgba(0, 0, 0, 0.7) !important;
     }
 
     .modal {
       z-index: 1050 !important;
-      pointer-events: none !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
     }
 
     .modal-dialog {
+      margin: 1.75rem auto !important;
+      max-height: calc(100vh - 3.5rem) !important;
+    }
+
+    .modal.show .modal-dialog {
+      transform: none !important;
+    }
+
+    .modal-content {
+      max-height: calc(100vh - 3.5rem) !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
       pointer-events: auto !important;
+    }
+
+    .modal-body {
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      max-height: calc(100vh - 200px) !important;
     }
 
     .modal .btn-close,
     .modal .close,
-    .modal [data-bs-dismiss],
-    .modal [data-dismiss] {
+    .modal [data-bs-dismiss="modal"],
+    .modal [data-dismiss="modal"] {
       pointer-events: auto !important;
       cursor: pointer !important;
-      z-index: 10 !important;
-      position: relative;
+      z-index: 1055 !important;
+      position: relative !important;
+      opacity: 1 !important;
+      background-color: rgba(255, 140, 66, 0.3) !important;
+      border-radius: 50% !important;
+      width: 32px !important;
+      height: 32px !important;
+    }
+
+    .modal .btn-close:hover,
+    .modal .close:hover {
+      opacity: 1 !important;
+      background-color: rgba(255, 140, 66, 0.6) !important;
     }
 
     /* Ensure buttons in modal are clickable */
     .modal button,
-    .modal .btn {
+    .modal .btn,
+    .modal input,
+    .modal textarea,
+    .modal select,
+    .modal a {
       pointer-events: auto !important;
+    }
+
+    .modal button:not(.btn-close),
+    .modal .btn {
       outline: none !important;
     }
 
     .modal button:focus,
     .modal .btn:focus {
       box-shadow: 0 0 0 0.25rem rgba(255, 140, 66, 0.25) !important;
+    }
+
+    /* Challenge modal specific fixes */
+    #challenge-window {
+      pointer-events: auto !important;
+    }
+
+    #challenge-window .modal-dialog {
+      max-width: 700px !important;
+      pointer-events: auto !important;
+    }
+
+    #challenge-window .modal-content {
+      position: relative !important;
+      pointer-events: auto !important;
+    }
+
+    #challenge-window .modal-body {
+      pointer-events: auto !important;
+    }
+
+    /* Prevent body scroll lock issues */
+    body.modal-open {
+      overflow: auto !important;
+      padding-right: 0 !important;
+    }
+
+    /* Make sure backdrop is clickable to dismiss */
+    .modal-backdrop.show {
+      opacity: 0.7 !important;
+    }
+
+    /* Ensure modal can be dismissed with ESC */
+    .modal.show {
+      display: block !important;
+    }
+
+    .modal.fade.show {
+      opacity: 1 !important;
     }
 
     /* Form styling for transparency */
@@ -269,3 +357,5 @@
 </body>
 
 </html>
+
+
