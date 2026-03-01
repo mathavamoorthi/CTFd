@@ -1,0 +1,160 @@
+{
+  "assets/img/constellation.svg": {
+    "file": "assets/constellation.c4b87353.svg",
+    "src": "assets/img/constellation.svg"
+  },
+  "assets/js/index.js": {
+    "file": "assets/index.e6052658.js",
+    "src": "assets/js/index.js",
+    "isEntry": true
+  },
+  "assets/js/page.js": {
+    "file": "assets/page.b06e87fe.js",
+    "src": "assets/js/page.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js"
+    ]
+  },
+  "assets/js/starfield.js": {
+    "file": "assets/starfield.38981034.js",
+    "src": "assets/js/starfield.js",
+    "isEntry": true
+  },
+  "assets/js/setup.js": {
+    "file": "assets/setup.62d2f874.js",
+    "src": "assets/js/setup.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js"
+    ]
+  },
+  "assets/js/settings.js": {
+    "file": "assets/settings.d8e5b87f.js",
+    "src": "assets/js/settings.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js",
+      "_clipboard.798078a5.js"
+    ]
+  },
+  "assets/js/challenges.js": {
+    "file": "assets/challenges.5d380c37.js",
+    "src": "assets/js/challenges.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js"
+    ]
+  },
+  "assets/js/scoreboard.js": {
+    "file": "assets/scoreboard.46038d15.js",
+    "src": "assets/js/scoreboard.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js",
+      "_index.e10522c6.js",
+      "_echarts.48b4e861.js"
+    ]
+  },
+  "assets/js/notifications.js": {
+    "file": "assets/notifications.af1e34b4.js",
+    "src": "assets/js/notifications.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js"
+    ]
+  },
+  "assets/js/teams/public.js": {
+    "file": "assets/teams_public.476d074e.js",
+    "src": "assets/js/teams/public.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js",
+      "_userscore.2aaf5aa2.js",
+      "_index.e10522c6.js",
+      "_echarts.48b4e861.js"
+    ]
+  },
+  "assets/js/teams/private.js": {
+    "file": "assets/teams_private.56a7339b.js",
+    "src": "assets/js/teams/private.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js",
+      "_clipboard.798078a5.js",
+      "_userscore.2aaf5aa2.js",
+      "_index.e10522c6.js",
+      "_echarts.48b4e861.js"
+    ]
+  },
+  "assets/js/teams/list.js": {
+    "file": "assets/teams_list.f6718604.js",
+    "src": "assets/js/teams/list.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js"
+    ]
+  },
+  "assets/js/users/public.js": {
+    "file": "assets/users_public.4336baef.js",
+    "src": "assets/js/users/public.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js",
+      "_userscore.2aaf5aa2.js",
+      "_index.e10522c6.js",
+      "_echarts.48b4e861.js"
+    ]
+  },
+  "assets/js/users/private.js": {
+    "file": "assets/users_private.d08a6585.js",
+    "src": "assets/js/users/private.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js",
+      "_userscore.2aaf5aa2.js",
+      "_index.e10522c6.js",
+      "_echarts.48b4e861.js"
+    ]
+  },
+  "assets/js/users/list.js": {
+    "file": "assets/users_list.02e2b8ad.js",
+    "src": "assets/js/users/list.js",
+    "isEntry": true,
+    "imports": [
+      "assets/js/index.js"
+    ]
+  },
+  "assets/js/color_mode_switcher.js": {
+    "file": "assets/color_mode_switcher.ef7861d7.js",
+    "src": "assets/js/color_mode_switcher.js",
+    "isEntry": true
+  },
+  "_echarts.48b4e861.js": {
+    "file": "assets/echarts.48b4e861.js"
+  },
+  "_clipboard.798078a5.js": {
+    "file": "assets/clipboard.798078a5.js",
+    "imports": [
+      "assets/js/index.js"
+    ]
+  },
+  "_index.e10522c6.js": {
+    "file": "assets/index.e10522c6.js",
+    "imports": [
+      "_echarts.48b4e861.js"
+    ]
+  },
+  "_userscore.2aaf5aa2.js": {
+    "file": "assets/userscore.2aaf5aa2.js",
+    "imports": [
+      "assets/js/index.js",
+      "_index.e10522c6.js"
+    ]
+  },
+  "assets/scss/main.scss": {
+    "file": "assets/main.7d31709a.css",
+    "src": "assets/scss/main.scss",
+    "isEntry": true
+  }
+}

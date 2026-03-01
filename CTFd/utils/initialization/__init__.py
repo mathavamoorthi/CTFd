@@ -228,6 +228,70 @@ def init_request_processors(app):
             else:
                 return redirect(url_for("views.setup"))
 
+    # ---------------------------------------------------------------
+    # Global authentication wall
+    # All endpoints require a logged-in session EXCEPT those listed
+    # in PUBLIC_ENDPOINTS below. Unauthenticated requests are
+    # redirected to /login?next=<original_path>.
+    # ---------------------------------------------------------------
+    PUBLIC_ENDPOINTS = {
+        # Auth flow
+        "auth.login",
+        "auth.register",
+        "auth.logout",
+        "auth.confirm",
+        "auth.reset_password",
+        "auth.oauth",
+        # Setup / infrastructure
+        "views.setup",
+        "views.integrations",
+        "views.themes",
+        "views.themes_beta",
+        "views.files",
+        "views.healthcheck",
+        "views.robots",
+        "views.debug",
+        "views.tos",
+        "views.privacy",
+    }
+
+    @app.before_request
+    def require_auth():
+        endpoint = request.endpoint
+
+        # Pass through if no endpoint (handled by error handlers)
+        if endpoint is None:
+            return
+
+        # Always allow public endpoints
+        if endpoint in PUBLIC_ENDPOINTS:
+            return
+
+        # Always allow admin routes (guarded by their own admins_only decorator)
+        if endpoint.startswith("admin."):
+            return
+
+        # Always allow API routes (guarded by the tokens hook + per-route decorators)
+        if endpoint.startswith("api."):
+            return
+
+        # Always allow SSE event stream
+        if endpoint.startswith("events."):
+            return
+
+        # Allow the home/landing page (/) without login
+        if (
+            endpoint == "views.static_html"
+            and request.view_args.get("route", "index") == "index"
+        ):
+            return
+
+        # If the user is not authenticated, redirect to login
+        if not authed():
+            return redirect(url_for("auth.login", next=request.full_path))
+
+
+
     @app.before_request
     def tracker():
         if request.endpoint == "views.themes":

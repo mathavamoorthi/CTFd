@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, redirect, render_template, request, url_for
 
 from CTFd.utils import config
 from CTFd.utils.config.visibility import scores_visible
+from CTFd.utils.decorators import authed_only
 from CTFd.utils.decorators.visibility import (
     check_account_visibility,
     check_score_visibility,
@@ -14,6 +15,7 @@ scoreboard = Blueprint("scoreboard", __name__)
 
 
 @scoreboard.route("/scoreboard")
+@authed_only
 @check_account_visibility
 @check_score_visibility
 def listing():
