@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{ title or Configs.ctf_name }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{{ Configs.ctf_small_icon }}" type="image/x-icon">
+
+  {{ meta | safe }}
+
+  {% block stylesheets %}
+  {{ Assets.css("assets/scss/main.scss") }}
+  {% endblock %}
+
+  {{ Plugins.styles }}
+
+  {{ Assets.js("assets/js/color_mode_switcher.js", type=None) }}
+
+  <script type="text/javascript">
+    window.init = {
+      'urlRoot': "{{ request.script_root }}",
+      'csrfNonce': "{{ Session.nonce }}",
+      'userMode': "{{ Configs.user_mode }}",
+      'userId': {{ Session.id | tojson }},
+    'userName': {{ User.name | tojson }},
+    'userEmail': {{ User.email | tojson }},
+    'userVerified': {{ User.verified | tojson }},
+    'teamId': {{ Team.id | tojson }},
+    'teamName': {{ Team.name | tojson }},
+    'start': {{ Configs.start | tojson }},
+    'end': {{ Configs.end | tojson }},
+    'themeSettings': {{ Configs.theme_settings | tojson }},
+    'eventSounds': [
+      "/themes/deep-space/static/sounds/notification.webm",
+      "/themes/deep-space/static/sounds/notification.mp3",
+    ],
+    }
+  </script>
+
+  {{ Configs.theme_header }}
+  <style>
+    :root {
+      --bg-image: url("{{ url_for('views.themes', theme='deep-space', path='img/sunset_red.png') }}");
+      --overlay-start: rgba(255, 140, 66, 0.1);
+      --overlay-end: rgba(139, 69, 19, 0.2);
+      --constellation: url("{{ url_for('views.themes', theme='deep-space', path='assets/constellation.c4b87353.svg') }}");
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-image: linear-gradient(135deg, var(--overlay-start) 0%, var(--overlay-end) 100%), var(--bg-image);
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+      position: relative;
+      z-index: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: linear-gradient(135deg, var(--overlay-start) 0%, var(--overlay-end) 100%), var(--bg-image);
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      pointer-events: none;
+    }
+
+    .constellation-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: var(--constellation);
+      background-size: auto;
+      background-position: center center;
+      background-repeat: repeat;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .navbar, .footer {
+      position: relative;
+      z-index: 2;
+    }
+
+    main,
+    .container {
+      position: relative;
+    }
+
+    .footer {
+      display: none !important;
+    }
+
+    /* Navbar styling */
+    .navbar {
+      background-color: rgba(26, 20, 16, 0.25) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      border-bottom: 1px solid rgba(255, 140, 66, 0.2) !important;
+      transition: all 0.3s ease;
+      box-shadow: none !important;
+    }
+
+    .navbar * {
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .navbar-brand, .nav-link {
+      color: #ff8c42 !important;
+      text-shadow: 0 0 10px rgba(255, 140, 66, 0.6), 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+      transition: all 0.3s ease;
+      background-color: transparent !important;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem !important;
+      font-weight: 700;
+    }
+
+    .nav-link {
+      color: #ff8c42 !important;
+      font-weight: 500;
+      position: relative;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem !important;
+    }
+
+    .nav-link:hover {
+      color: #ffeb99 !important;
+      text-shadow: 0 0 15px rgba(255, 235, 153, 0.8), 0 0 25px rgba(255, 140, 66, 0.6) !important;
+      transform: scale(1.05);
+    }
+
+    /* Modal styling - transparent background */
+    .modal-content {
+      background-color: rgba(26, 20, 16, 0.35) !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+      border: 1px solid rgba(255, 140, 66, 0.2) !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .modal-header,
+    .modal-footer {
+      border-color: rgba(255, 140, 66, 0.1) !important;
+      background-color: rgba(201, 68, 10, 0.05) !important;
+    }
+
+    .modal-body {
+      background-color: transparent !important;
+    }
+
+    /* Fix modal stuck issue - ensure backdrop and close buttons work */
+    .modal-backdrop {
+      z-index: 1040 !important;
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      background-color: rgba(0, 0, 0, 0.7) !important;
+    }
+
+    .modal {
+      z-index: 1050 !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+    }
+
+    .modal-dialog {
+      margin: 1.75rem auto !important;
+      max-height: calc(100vh - 3.5rem) !important;
+    }
+
+    .modal.show .modal-dialog {
+      transform: none !important;
+    }
+
+    .modal-content {
+      max-height: calc(100vh - 3.5rem) !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+      pointer-events: auto !important;
+    }
+
+    .modal-body {
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      max-height: calc(100vh - 200px) !important;
+    }
+
+    .modal .btn-close,
+    .modal .close,
+    .modal [data-bs-dismiss="modal"],
+    .modal [data-dismiss="modal"] {
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      z-index: 1055 !important;
+      position: relative !important;
+      opacity: 1 !important;
+      background-color: rgba(255, 140, 66, 0.3) !important;
+      border-radius: 50% !important;
+      width: 32px !important;
+      height: 32px !important;
+    }
+
+    .modal .btn-close:hover,
+    .modal .close:hover {
+      opacity: 1 !important;
+      background-color: rgba(255, 140, 66, 0.6) !important;
+    }
+
+    /* Ensure buttons in modal are clickable */
+    .modal button,
+    .modal .btn,
+    .modal input,
+    .modal textarea,
+    .modal select,
+    .modal a {
+      pointer-events: auto !important;
+    }
+
+    .modal button:not(.btn-close),
+    .modal .btn {
+      outline: none !important;
+    }
+
+    .modal button:focus,
+    .modal .btn:focus {
+      box-shadow: 0 0 0 0.25rem rgba(255, 140, 66, 0.25) !important;
+    }
+
+    /* Challenge modal specific fixes */
+    #challenge-window {
+      pointer-events: auto !important;
+    }
+
+    #challenge-window .modal-dialog {
+      max-width: 700px !important;
+      pointer-events: auto !important;
+    }
+
+    #challenge-window .modal-content {
+      position: relative !important;
+      pointer-events: auto !important;
+    }
+
+    #challenge-window .modal-body {
+      pointer-events: auto !important;
+    }
+
+    /* Prevent body scroll lock issues */
+    body.modal-open {
+      overflow: auto !important;
+      padding-right: 0 !important;
+    }
+
+    /* Make sure backdrop is clickable to dismiss */
+    .modal-backdrop.show {
+      opacity: 0.7 !important;
+    }
+
+    /* Ensure modal can be dismissed with ESC */
+    .modal.show {
+      display: block !important;
+    }
+
+    .modal.fade.show {
+      opacity: 1 !important;
+    }
+
+    /* Form styling for transparency */
+    .form-control,
+    .form-select {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(255, 140, 66, 0.4) !important;
+      color: #fff !important;
+    }
+    .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    /* Keep native select option lists readable (country picker, captain picker, etc.) */
+    .form-select option,
+    .form-select optgroup {
+      color: #ffe7d4 !important;
+      background-color: #1a1410 !important;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      background-color: rgba(255, 255, 255, 0.12) !important;
+      border-color: #ff8c42 !important;
+      box-shadow: 0 0 10px rgba(255, 140, 66, 0.4) !important;
+      outline: none !important;
+    }
+
+    /* Prevent challenge buttons from getting stuck */
+    .challenge-button {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .challenge-button:focus,
+    .challenge-button:focus-visible,
+    .challenge-button:active,
+    .challenge-button:hover {
+      outline: none !important;
+    }
+
+    .challenge-button:after {
+      pointer-events: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="constellation-overlay"></div>
+  {% include "components/navbar.html" %}
+
+  <main role="main">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  {% include "components/snackbar.html" %}
+
+  <footer class="footer">
+    <div class="container text-center">
+      <a href="https://ctfd.io" class="text-secondary">
+        <small class="text-muted">
+          {% trans %}Powered by CTFd{% endtrans %}
+        </small>
+      </a>
+    </div>
+  </footer>
+
+  {% include "components/notifications.html" %}
+
+  {% block scripts %}
+  {{ Assets.js("assets/js/page.js") }}
+  {{ Assets.js("assets/js/starfield.js") }}
+  {% endblock %}
+
+  {{ Plugins.scripts }}
+
+  {{ Configs.theme_footer }}
+</body>
+
+</html>
+
+
+
